@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zalando Redesign Concept - UX Clean</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,6 +14,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -36,69 +37,82 @@
             transform: translateY(0);
             pointer-events: auto;
         }
-        /* Animación suave para hover en secciones */
         .section-hover:hover .section-title-arrow {
             transform: translateX(4px);
             opacity: 1;
         }
-        /* Estilos para detalles/resumen (FAQ) */
         details > summary {
             list-style: none;
         }
         details > summary::-webkit-details-marker {
             display: none;
         }
+        /* Estilos específicos para el acordeón premium */
+        details[open] summary ~ * {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="bg-white text-gray-900 relative overflow-x-hidden">
+<body class="bg-white text-gray-900 relative overflow-x-hidden pb-10">
 
     <!-- HEADER -->
-    <header class="border-b border-gray-200 sticky top-0 bg-white z-50">
-        <div class="bg-gray-100 text-xs text-center py-1 text-gray-500 font-medium">
+    <header class="border-b border-gray-200 sticky top-0 bg-white z-50 transition-all duration-300" id="main-header">
+        <div class="bg-gray-100 text-[10px] md:text-xs text-center py-1.5 text-gray-500 font-medium px-2 truncate">
             Envío y devolución gratuitos* | 100 días de derecho a devolución
         </div>
         
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <nav class="flex gap-6 text-sm font-bold">
+        <div class="max-w-7xl mx-auto px-4 h-14 md:h-16 flex items-center justify-between">
+            <nav class="hidden md:flex gap-6 text-sm font-bold">
                 <a href="#" class="bg-gray-900 text-white px-3 py-1">Hombre</a>
                 <a href="#" class="text-gray-500 hover:text-black transition">Mujer</a>
                 <a href="#" class="text-gray-500 hover:text-black transition">Niños</a>
             </nav>
 
+            <div class="md:hidden">
+                 <i data-lucide="menu" class="w-6 h-6 text-gray-900"></i>
+            </div>
+
             <div class="absolute left-1/2 transform -translate-x-1/2">
                 <div class="flex items-center gap-1 cursor-pointer">
-                    <div class="w-6 h-6 bg-[#ff6900] rounded-tr-lg rounded-bl-lg"></div>
-                    <span class="text-2xl font-bold tracking-tight">zalando</span>
+                    <div class="w-5 h-5 md:w-6 md:h-6 bg-[#ff6900] rounded-tr-lg rounded-bl-lg"></div>
+                    <span class="text-xl md:text-2xl font-bold tracking-tight">zalando</span>
                 </div>
             </div>
 
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4 md:gap-6">
                 <div class="hidden md:flex bg-gray-100 px-4 py-2 rounded-sm w-64 items-center gap-2">
                     <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
                     <input type="text" placeholder="Buscar" class="bg-transparent text-sm w-full outline-none placeholder-gray-500">
                 </div>
-                <div class="flex gap-4">
-                    <i data-lucide="user" class="w-6 h-6 cursor-pointer hover:text-[#ff6900] transition"></i>
-                    <i data-lucide="heart" class="w-6 h-6 cursor-pointer hover:text-[#ff6900] transition"></i>
-                    <i data-lucide="shopping-bag" class="w-6 h-6 cursor-pointer hover:text-[#ff6900] transition"></i>
+                <i data-lucide="search" class="md:hidden w-6 h-6 text-gray-900"></i>
+                
+                <div class="flex gap-3 md:gap-4">
+                    <i data-lucide="user" class="hidden md:block w-6 h-6 cursor-pointer hover:text-[#ff6900]"></i>
+                    <i data-lucide="heart" class="hidden md:block w-6 h-6 cursor-pointer hover:text-[#ff6900]"></i>
+                    <i data-lucide="shopping-bag" class="w-6 h-6 cursor-pointer hover:text-[#ff6900]"></i>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
     <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 pt-6 pb-20">
         
         <!-- 1. BREADCRUMBS & TITLE AREA -->
-        <div class="flex flex-col mb-6">
-            <nav class="text-sm text-gray-500 mb-2">
+        <div class="flex flex-col mb-4 md:mb-6">
+            <nav class="text-xs md:text-sm text-gray-500 mb-2 overflow-x-auto hide-scrollbar whitespace-nowrap">
                 <ol class="list-none p-0 inline-flex items-center">
                     <li class="flex items-center">
                         <a href="#" class="hover:underline hover:text-black">Hombre</a>
-                        <i data-lucide="chevron-right" class="w-4 h-4 mx-1 text-gray-400"></i>
+                        <i data-lucide="chevron-right" class="w-3 h-3 mx-1 text-gray-400"></i>
                     </li>
                     <li class="flex items-center">
                         <a href="#" class="hover:underline hover:text-black">Zapatos</a>
-                        <i data-lucide="chevron-right" class="w-4 h-4 mx-1 text-gray-400"></i>
+                        <i data-lucide="chevron-right" class="w-3 h-3 mx-1 text-gray-400"></i>
                     </li>
                     <li class="flex items-center">
                         <span class="text-black font-bold">Zapatillas</span>
@@ -106,32 +120,28 @@
                 </ol>
             </nav>
             
-            <div class="flex items-end gap-4">
-                <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Zapatillas de hombre</h1>
-                <span class="text-gray-500 text-sm mb-1.5 hidden md:inline-block">12.455 artículos</span>
+            <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4">
+                <h1 class="text-2xl md:text-4xl font-bold tracking-tight">Zapatillas de hombre</h1>
+                <span class="text-gray-500 text-xs md:text-sm mb-1.5">12.455 artículos</span>
             </div>
         </div>
 
-        <!-- 2. UNIFIED CONTROL BAR (STATIC) -->
-        <div class="relative bg-white z-40 py-3 border-y border-gray-100 mb-8 shadow-sm">
-            <div class="flex items-center justify-between">
-                
-                <!-- IZQUIERDA: Explorar Categorías -->
-                <div class="relative">
-                    <button onclick="toggleCategoryMenu()" id="category-trigger" class="flex items-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition group border border-transparent hover:border-gray-200">
-                        <span class="text-sm font-semibold">Explorar Categorías</span>
-                        <i data-lucide="chevron-down" id="category-chevron" class="w-4 h-4 text-gray-500 group-hover:text-black transition-transform duration-300"></i>
+        <!-- 2. CONTROL BAR -->
+        <div class="relative bg-white z-40 py-2 md:py-3 border-y border-gray-100 mb-6 md:mb-8 shadow-sm -mx-4 px-4 md:mx-0 md:px-0">
+            <div class="flex items-center justify-between gap-2">
+                <div class="relative flex-1 md:flex-none">
+                    <button onclick="toggleCategoryMenu()" id="category-trigger" class="w-full md:w-auto justify-center md:justify-start flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition group border border-transparent hover:border-gray-200">
+                        <span class="text-xs md:text-sm font-semibold truncate">Categorías</span>
+                        <i data-lucide="chevron-down" id="category-chevron" class="w-3 h-3 md:w-4 md:h-4 text-gray-500 group-hover:text-black transition-transform duration-300"></i>
                     </button>
-
-                    <!-- Dropdown Menu -->
-                    <div id="category-menu" class="category-dropdown absolute top-full left-0 mt-2 w-screen max-w-2xl bg-white rounded-xl shadow-2xl border border-gray-100 p-4 z-50">
+                    <div id="category-menu" class="category-dropdown absolute top-full left-0 mt-2 w-[90vw] md:w-screen md:max-w-2xl bg-white rounded-xl shadow-2xl border border-gray-100 p-4 z-50">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <a href="#" class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition group/item">
                                 <div class="p-2 bg-teal-50 rounded-md mr-3 text-teal-600 group-hover/item:bg-teal-100">
                                     <i data-lucide="arrow-down-to-line" class="w-4 h-4"></i>
                                 </div>
                                 <div>
-                                    <span class="block font-bold text-sm">Zapatillas bajas</span>
+                                    <span class="block font-bold text-sm">Bajas</span>
                                     <span class="text-xs text-gray-500">5030+ items</span>
                                 </div>
                             </a>
@@ -140,7 +150,7 @@
                                     <i data-lucide="arrow-up-to-line" class="w-4 h-4"></i>
                                 </div>
                                 <div>
-                                    <span class="block font-bold text-sm">Zapatillas altas</span>
+                                    <span class="block font-bold text-sm">Altas</span>
                                     <span class="text-xs text-gray-500">1397 items</span>
                                 </div>
                             </a>
@@ -149,7 +159,7 @@
                                     <i data-lucide="move" class="w-4 h-4"></i>
                                 </div>
                                 <div>
-                                    <span class="block font-bold text-sm">Zapatillas Skate</span>
+                                    <span class="block font-bold text-sm">Skate</span>
                                     <span class="text-xs text-gray-500">245 items</span>
                                 </div>
                             </a>
@@ -157,390 +167,371 @@
                     </div>
                 </div>
 
-                <!-- DERECHA: Botón Unificado -->
-                <button onclick="toggleFilters()" class="flex items-center gap-2 bg-black text-white px-5 py-2 hover:bg-gray-800 transition rounded-sm shadow-md active:transform active:scale-95">
-                    <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
-                    <span class="text-sm font-bold tracking-wide uppercase">Filtrar y Ordenar</span>
+                <button onclick="toggleFilters()" class="flex-1 md:flex-none justify-center flex items-center gap-1.5 md:gap-2 bg-black text-white px-4 md:px-5 py-2 hover:bg-gray-800 transition rounded-full md:rounded-sm shadow-md active:transform active:scale-95">
+                    <i data-lucide="sliders-horizontal" class="w-3 h-3 md:w-4 md:h-4"></i>
+                    <span class="text-xs md:text-sm font-bold tracking-wide uppercase truncate">Filtrar</span>
                 </button>
-
             </div>
         </div>
 
-        <!-- 3. NUEVOS BOTONES AESTHETIC DE NAVEGACIÓN (SIMÉTRICOS Y CÓMODOS) -->
-        <!-- Justo donde pediste: Entre el control y el contenido -->
-        <div class="flex justify-center items-center gap-3 md:gap-6 mb-12 px-2">
-            
-            <button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:border-black hover:shadow-lg transition-all duration-300 group">
-                <span class="text-sm font-medium group-hover:scale-105 transition-transform">👟 Lifestyle</span>
+        <!-- 3. NAV CAROUSEL -->
+        <div class="flex md:justify-center overflow-x-auto hide-scrollbar gap-3 md:gap-6 mb-8 md:mb-12 pb-2 -mx-4 px-4 scroll-smooth snap-x snap-mandatory">
+            <button class="snap-start flex-shrink-0 flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-gray-200 bg-white active:bg-gray-50 transition-all duration-300 group shadow-sm">
+                <span class="text-sm font-medium">👟 Lifestyle</span>
             </button>
-            
-            <button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:border-blue-500 hover:text-blue-600 hover:shadow-lg transition-all duration-300 group">
-                <span class="text-sm font-medium group-hover:scale-105 transition-transform">🏃 Running</span>
+            <button class="snap-start flex-shrink-0 flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-gray-200 bg-white active:bg-gray-50 transition-all duration-300 group shadow-sm">
+                <span class="text-sm font-medium">🏃 Running</span>
             </button>
-            
-            <button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:border-[#ff6900] hover:text-[#ff6900] hover:shadow-lg transition-all duration-300 group">
-                <span class="text-sm font-medium group-hover:scale-105 transition-transform">🏀 Retro</span>
+            <button class="snap-start flex-shrink-0 flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-gray-200 bg-white active:bg-gray-50 transition-all duration-300 group shadow-sm">
+                <span class="text-sm font-medium">🏀 Retro</span>
             </button>
-            
-            <button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:border-green-600 hover:text-green-600 hover:shadow-lg transition-all duration-300 group">
-                <span class="text-sm font-medium group-hover:scale-105 transition-transform">🌱 Eco-Friendly</span>
+            <button class="snap-start flex-shrink-0 flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-gray-200 bg-white active:bg-gray-50 transition-all duration-300 group shadow-sm">
+                <span class="text-sm font-medium">🌱 Eco</span>
             </button>
-            
-            <button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:border-purple-600 hover:text-purple-600 hover:shadow-lg transition-all duration-300 group">
-                <span class="text-sm font-medium group-hover:scale-105 transition-transform">💎 Exclusivos</span>
+            <button class="snap-start flex-shrink-0 flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-gray-200 bg-white active:bg-gray-50 transition-all duration-300 group shadow-sm">
+                <span class="text-sm font-medium">💎 Exclusivos</span>
             </button>
-
+            <div class="w-2 md:hidden flex-shrink-0"></div>
         </div>
 
 
-        <!-- 4. BLOQUES VERTICALES DE CONTENIDO (STORYTELLING) -->
+        <!-- 4. CONTENT GRID -->
         
         <!-- SECCIÓN 1: NOVEDADES -->
-        <section class="mb-16 section-hover">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold flex items-center gap-2">
-                    <span class="bg-black text-white p-1 rounded">🔥</span> Recién Llegados
-                    <i data-lucide="arrow-right" class="w-5 h-5 opacity-0 section-title-arrow transition-all duration-300"></i>
+        <section class="mb-12 md:mb-16 section-hover">
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-xl md:text-2xl font-bold flex items-center gap-2">
+                    <span class="bg-black text-white p-1 rounded text-sm md:text-base">🔥</span> 
+                    <span class="truncate">Recién Llegados</span>
+                    <i data-lucide="arrow-right" class="hidden md:block w-5 h-5 opacity-0 section-title-arrow transition-all duration-300"></i>
                 </h2>
-                <a href="#" class="text-sm font-bold underline hover:text-gray-600">Ver todo</a>
+                <a href="#" class="text-xs md:text-sm font-bold underline hover:text-gray-600 whitespace-nowrap">Ver todo</a>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Producto 1 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-black text-white px-3 py-1 text-xs font-bold tracking-wider">NEW DROP</div>
-                        <button class="absolute bottom-3 right-3 bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0">
-                            <i data-lucide="heart" class="w-4 h-4"></i>
-                        </button>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 md:top-3 md:left-3 bg-black text-white px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold tracking-wider">NEW</div>
                     </div>
-                    <h3 class="font-bold text-sm">New Balance 530</h3>
-                    <p class="text-xs text-gray-500 mb-1">Running retro</p>
-                    <span class="text-sm font-bold">120,00 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">New Balance 530</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 mb-1 truncate">Running retro</p>
+                    <span class="text-sm md:text-sm font-bold">120,00 €</span>
                 </div>
-                <!-- Producto 2 -->
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 bg-gray-50 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-black text-white px-3 py-1 text-xs font-bold">NUEVO</div>
-                        <button class="absolute bottom-3 right-3 bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0">
-                            <i data-lucide="heart" class="w-4 h-4"></i>
-                        </button>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-black text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">NUEVO</div>
                     </div>
-                    <h3 class="font-bold text-sm">Nike Dunk Low</h3>
-                    <p class="text-xs text-gray-500 mb-1">Iconos urbanos</p>
-                    <span class="text-sm font-bold">119,95 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Nike Dunk Low</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 mb-1 truncate">Iconos urbanos</p>
+                    <span class="text-sm md:text-sm font-bold">119,95 €</span>
                 </div>
-                <!-- Producto 3 -->
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 bg-gray-50 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-white border border-black px-2 py-1 text-xs font-bold">PRE-ORDER</div>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-white border border-black px-2 py-0.5 text-[10px] md:text-xs font-bold">PRE-ORDER</div>
                     </div>
-                    <h3 class="font-bold text-sm">Puma Suede</h3>
-                    <p class="text-xs text-gray-500 mb-1">Clásicos</p>
-                    <span class="text-sm font-bold">89,95 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Puma Suede</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 mb-1 truncate">Clásicos</p>
+                    <span class="text-sm md:text-sm font-bold">89,95 €</span>
                 </div>
-                <!-- Producto 4 -->
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 bg-gray-50 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
                     </div>
-                    <h3 class="font-bold text-sm">Jordan 1 Mid</h3>
-                    <p class="text-xs text-gray-500 mb-1">Baloncesto lifestyle</p>
-                    <span class="text-sm font-bold">139,95 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Jordan 1 Mid</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 mb-1 truncate">Baloncesto lifestyle</p>
+                    <span class="text-sm md:text-sm font-bold">139,95 €</span>
                 </div>
             </div>
         </section>
 
         <!-- SECCIÓN 2: MÁS VENDIDOS -->
-        <section class="mb-16 section-hover py-8 bg-gray-50 -mx-4 px-4">
+        <section class="mb-12 md:mb-16 section-hover py-6 md:py-8 bg-gray-50 -mx-4 px-4">
             <div class="max-w-7xl mx-auto">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold flex items-center gap-2">
-                        <span class="text-yellow-500">⭐</span> Top Ventas de la Semana
-                        <i data-lucide="arrow-right" class="w-5 h-5 opacity-0 section-title-arrow transition-all duration-300"></i>
+                <div class="flex items-center justify-between mb-4 md:mb-6">
+                    <h2 class="text-xl md:text-2xl font-bold flex items-center gap-2">
+                        <span class="text-yellow-500">⭐</span> Top Ventas
                     </h2>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <!-- Item -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                     <div class="group cursor-pointer bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="relative overflow-hidden mb-3 aspect-square">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                            <div class="absolute bottom-2 left-2 flex gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
+                        <div class="relative overflow-hidden mb-2 aspect-square">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
                         </div>
-                        <h3 class="font-bold text-sm">Nike Air Max 90</h3>
-                        <span class="text-sm font-bold text-[#ff6900]">119,95 €</span>
-                        <p class="text-xs text-gray-500 mt-1">2.4k valoraciones</p>
+                        <h3 class="font-bold text-xs md:text-sm truncate">Nike Air Max 90</h3>
+                        <span class="text-sm md:text-sm font-bold text-[#ff6900]">119,95 €</span>
+                        <div class="flex items-center gap-1 mt-1">
+                             <div class="flex text-yellow-400 text-[10px]">★★★★★</div>
+                             <span class="text-[10px] text-gray-400">(2.4k)</span>
+                        </div>
                     </div>
-                    <!-- Item -->
                     <div class="group cursor-pointer bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="relative overflow-hidden mb-3 aspect-square">
-                            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                            <div class="absolute bottom-2 left-2 flex gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star-half" class="w-3 h-3 fill-current"></i>
-                            </div>
+                        <div class="relative overflow-hidden mb-2 aspect-square">
+                            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
                         </div>
-                        <h3 class="font-bold text-sm">Adidas Gazelle</h3>
-                        <span class="text-sm font-bold">109,95 €</span>
-                        <p class="text-xs text-gray-500 mt-1">1.8k valoraciones</p>
+                        <h3 class="font-bold text-xs md:text-sm truncate">Adidas Gazelle</h3>
+                        <span class="text-sm md:text-sm font-bold">109,95 €</span>
+                        <div class="flex items-center gap-1 mt-1">
+                             <div class="flex text-yellow-400 text-[10px]">★★★★☆</div>
+                             <span class="text-[10px] text-gray-400">(1.8k)</span>
+                        </div>
                     </div>
-                    <!-- Item -->
                     <div class="group cursor-pointer bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="relative overflow-hidden mb-3 aspect-square">
-                            <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                            <div class="absolute bottom-2 left-2 flex gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 text-gray-300"></i>
-                            </div>
+                        <div class="relative overflow-hidden mb-2 aspect-square">
+                            <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
                         </div>
-                        <h3 class="font-bold text-sm">Converse Chuck 70</h3>
-                        <span class="text-sm font-bold">95,00 €</span>
-                        <p class="text-xs text-gray-500 mt-1">5k valoraciones</p>
+                        <h3 class="font-bold text-xs md:text-sm truncate">Converse Chuck 70</h3>
+                        <span class="text-sm md:text-sm font-bold">95,00 €</span>
+                        <div class="flex items-center gap-1 mt-1">
+                             <div class="flex text-yellow-400 text-[10px]">★★★★★</div>
+                             <span class="text-[10px] text-gray-400">(5k)</span>
+                        </div>
                     </div>
-                    <!-- Item -->
                     <div class="group cursor-pointer bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="relative overflow-hidden mb-3 aspect-square">
-                            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                                <div class="absolute bottom-2 left-2 flex gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
+                        <div class="relative overflow-hidden mb-2 aspect-square">
+                            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
                         </div>
-                        <h3 class="font-bold text-sm">Nike Air Force 1</h3>
-                        <span class="text-sm font-bold">119,95 €</span>
-                        <p class="text-xs text-gray-500 mt-1">12k valoraciones</p>
+                        <h3 class="font-bold text-xs md:text-sm truncate">Nike Air Force 1</h3>
+                        <span class="text-sm md:text-sm font-bold">119,95 €</span>
+                        <div class="flex items-center gap-1 mt-1">
+                             <div class="flex text-yellow-400 text-[10px]">★★★★★</div>
+                             <span class="text-[10px] text-gray-400">(12k)</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECCIÓN 3: SOSTENIBILIDAD -->
-        <section class="mb-16 section-hover">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold flex items-center gap-2 text-green-800">
-                    <span class="bg-green-100 text-green-700 p-1 rounded">🌿</span> Sostenibilidad
-                    <i data-lucide="leaf" class="w-5 h-5 text-green-600"></i>
+        <section class="mb-12 md:mb-16 section-hover">
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-xl md:text-2xl font-bold flex items-center gap-2 text-green-800">
+                    <span class="bg-green-100 text-green-700 p-1 rounded text-sm md:text-base">🌿</span> Sostenibilidad
                 </h2>
-                <a href="#" class="text-sm font-bold text-green-700 underline hover:text-green-900">Ver colección eco</a>
+                <a href="#" class="text-xs md:text-sm font-bold text-green-700 underline hover:text-green-900 whitespace-nowrap">Ver eco</a>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Item Eco 1 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-green-700 text-white px-2 py-1 text-xs font-bold">MATERIALES RECICLADOS</div>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-green-700 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">RECICLADO</div>
                     </div>
-                    <h3 class="font-bold text-sm">Veja V-10</h3>
-                    <p class="text-xs text-gray-500">Cuero vegano</p>
-                    <span class="text-sm font-bold">145,00 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Veja V-10</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 truncate">Cuero vegano</p>
+                    <span class="text-sm md:text-sm font-bold">145,00 €</span>
                 </div>
-                <!-- Item Eco 2 -->
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1597045566677-8cf032ed6634?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-green-700 text-white px-2 py-1 text-xs font-bold">BIO-BASED</div>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1597045566677-8cf032ed6634?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-green-700 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">BIO</div>
                     </div>
-                    <h3 class="font-bold text-sm">Adidas Ultraboost DNA</h3>
-                    <p class="text-xs text-gray-500">Parley Ocean Plastic</p>
-                    <span class="text-sm font-bold">180,00 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Adidas UB DNA</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 truncate">Parley Plastic</p>
+                    <span class="text-sm md:text-sm font-bold">180,00 €</span>
                 </div>
-                <!-- Item Eco 3 -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1618677831708-0e7fda3148b4?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-green-700 text-white px-2 py-1 text-xs font-bold">ECO</div>
+                 <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1618677831708-0e7fda3148b4?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-green-700 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">ECO</div>
                     </div>
-                    <h3 class="font-bold text-sm">Saye Modelo '89</h3>
-                    <p class="text-xs text-gray-500">Algodón orgánico</p>
-                    <span class="text-sm font-bold">129,00 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Saye '89</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 truncate">Orgánico</p>
+                    <span class="text-sm md:text-sm font-bold">129,00 €</span>
                 </div>
-                <!-- Item Eco 4 -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1628253747716-0c4f5c90fdda?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-green-700 text-white px-2 py-1 text-xs font-bold">VEGAN</div>
+                 <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1628253747716-0c4f5c90fdda?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-green-700 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">VEGAN</div>
                     </div>
-                    <h3 class="font-bold text-sm">Reebok Club C 85</h3>
-                    <p class="text-xs text-gray-500">Edición vegana</p>
-                    <span class="text-sm font-bold">90,00 €</span>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Reebok Club C</h3>
+                    <p class="text-[10px] md:text-xs text-gray-500 truncate">Vegana</p>
+                    <span class="text-sm md:text-sm font-bold">90,00 €</span>
                 </div>
             </div>
         </section>
 
         <!-- SECCIÓN 4: OFERTAS -->
         <section class="mb-20 section-hover">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold flex items-center gap-2 text-red-600">
-                    <span class="bg-red-100 text-red-600 p-1 rounded">🏷️</span> Últimas Ofertas
-                    <i data-lucide="tag" class="w-5 h-5 text-red-600"></i>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-xl md:text-2xl font-bold flex items-center gap-2 text-red-600">
+                    <span class="bg-red-100 text-red-600 p-1 rounded text-sm md:text-base">🏷️</span> Últimas Ofertas
                 </h2>
-                <a href="#" class="text-sm font-bold text-red-600 underline hover:text-red-800">Ver todas las rebajas</a>
+                <a href="#" class="text-xs md:text-sm font-bold text-red-600 underline hover:text-red-800 whitespace-nowrap">Ver rebajas</a>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Item Sale 1 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1579338559194-a162d84400e9?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 text-xs font-bold">-40%</div>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1579338559194-a162d84400e9?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">-40%</div>
                     </div>
-                    <h3 class="font-bold text-sm">Puma RS-X</h3>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Puma RS-X</h3>
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-bold text-red-600">66,00 €</span>
-                        <span class="text-xs text-gray-400 line-through">110,00 €</span>
+                        <span class="text-sm md:text-sm font-bold text-red-600">66,00 €</span>
+                        <span class="text-[10px] md:text-xs text-gray-400 line-through">110€</span>
                     </div>
                 </div>
-                <!-- Item Sale 2 -->
                 <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1584735175097-719d848f8449?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 text-xs font-bold">-30%</div>
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1584735175097-719d848f8449?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">-30%</div>
                     </div>
-                    <h3 class="font-bold text-sm">Nike Blazer Mid '77</h3>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Nike Blazer</h3>
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-bold text-red-600">76,95 €</span>
-                        <span class="text-xs text-gray-400 line-through">109,95 €</span>
+                        <span class="text-sm md:text-sm font-bold text-red-600">76,95 €</span>
+                        <span class="text-[10px] md:text-xs text-gray-400 line-through">109€</span>
                     </div>
                 </div>
-                <!-- Item Sale 3 -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 text-xs font-bold">-25%</div>
+                
+                 <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">-25%</div>
                     </div>
-                    <h3 class="font-bold text-sm">New Balance 327</h3>
+                    <h3 class="font-bold text-xs md:text-sm truncate">NB 327</h3>
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-bold text-red-600">90,00 €</span>
-                        <span class="text-xs text-gray-400 line-through">120,00 €</span>
+                        <span class="text-sm md:text-sm font-bold text-red-600">90,00 €</span>
+                        <span class="text-[10px] md:text-xs text-gray-400 line-through">120€</span>
                     </div>
                 </div>
-                <!-- Item Sale 4 -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-3 aspect-[3/4]">
-                        <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full group-hover:scale-105 transition duration-500" alt="Shoe">
-                        <div class="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 text-xs font-bold">-50%</div>
+                
+                 <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-2 md:mb-3 aspect-[3/4] bg-gray-100 rounded-md">
+                        <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&q=80&w=600" class="object-cover w-full h-full md:group-hover:scale-105 transition duration-500" alt="Shoe">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-0.5 text-[10px] md:text-xs font-bold">-50%</div>
                     </div>
-                    <h3 class="font-bold text-sm">Saucony Jazz</h3>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Saucony Jazz</h3>
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-bold text-red-600">55,00 €</span>
-                        <span class="text-xs text-gray-400 line-through">110,00 €</span>
+                        <span class="text-sm md:text-sm font-bold text-red-600">55,00 €</span>
+                        <span class="text-[10px] md:text-xs text-gray-400 line-through">110€</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- CTA DE REPESCA & SEO & FAQ -->
+        <!-- CTA DE REPESCA & SEO & FAQ (VERSIÓN PREMIUM) -->
         <!-- ========================================== -->
         
         <div class="border-t border-gray-200 pt-16 mt-8">
             
-            <!-- 1. CTA DE REPESCA -->
-            <div class="bg-gray-900 text-white rounded-xl p-8 md:p-12 mb-16 text-center relative overflow-hidden">
+            <!-- 1. CTA DE REPESCA (ESTILO IMPRESIONANTE) -->
+            <div class="bg-gray-900 text-white rounded-xl p-8 md:p-12 mb-16 text-center relative overflow-hidden shadow-2xl mx-2 md:mx-0">
                 <div class="relative z-10">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-4">¿No has encontrado lo que buscabas?</h2>
-                    <p class="text-gray-300 mb-8 max-w-lg mx-auto">Explora nuestro catálogo completo con más de 12.000 modelos de zapatillas. Desde las ediciones limitadas hasta los clásicos que nunca fallan.</p>
-                    <button class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition transform hover:scale-105 shadow-lg">
-                        Ver todas las colecciones
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 tracking-tight">¿No has encontrado lo que buscabas?</h2>
+                    <p class="text-gray-300 mb-8 max-w-lg mx-auto text-base md:text-lg">Explora nuestro catálogo completo con más de 12.000 modelos. Desde ediciones limitadas hasta los clásicos inmortales.</p>
+                    <button class="bg-white text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-100 transition transform hover:scale-105 shadow-lg text-sm md:text-base tracking-wide uppercase">
+                        Ver colección completa
                     </button>
                 </div>
-                <!-- Decoración de fondo abstracta -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-gray-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
-                <div class="absolute bottom-0 left-0 w-64 h-64 bg-gray-700 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform -translate-x-1/2 translate-y-1/2"></div>
+                <!-- Decoración abstracta recuperada -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full mix-blend-screen filter blur-[80px] opacity-30 transform translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-600 rounded-full mix-blend-screen filter blur-[80px] opacity-30 transform -translate-x-1/2 translate-y-1/2 animate-pulse"></div>
             </div>
 
-            <!-- 2. CONTENIDO SEO (POSICIONAMIENTO) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 px-2">
-                <div>
-                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
-                        <i data-lucide="trending-up" class="w-5 h-5 text-gray-400"></i>
-                        Tendencias en Zapatillas de Hombre 2025
+            <!-- 2. CONTENIDO SEO (EXPERTO) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-16 px-2">
+                <div class="prose prose-sm max-w-none">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3 text-gray-900">
+                        <span class="bg-gray-100 p-2 rounded-lg"><i data-lucide="trending-up" class="w-5 h-5 text-black"></i></span>
+                        Tendencias 2025: Retro-Futurismo
                     </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        El calzado masculino ha evolucionado drásticamente. Esta temporada, la fusión entre el <strong>estilo retro-running</strong> y la tecnología futurista domina las calles. Modelos icónicos como las <em>Nike Dunk Low</em> o las <em>New Balance 530</em> se reinventan con materiales sostenibles, ofreciendo no solo estética, sino un compromiso con el medio ambiente.
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        El calzado masculino ha evolucionado drásticamente. Esta temporada, la fusión entre el <strong>estilo retro-running</strong> y la tecnología futurista domina las calles. Modelos icónicos como las <em>Nike Dunk Low</em> o las <em>New Balance 530</em> se reinventan con materiales sostenibles, ofreciendo no solo estética, sino un compromiso real con el medio ambiente.
                     </p>
-                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
-                        <i data-lucide="activity" class="w-5 h-5 text-gray-400"></i>
-                        Comodidad y Rendimiento Urbano
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3 text-gray-900">
+                        <span class="bg-gray-100 p-2 rounded-lg"><i data-lucide="activity" class="w-5 h-5 text-black"></i></span>
+                        Rendimiento Urbano
                     </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Ya no es necesario sacrificar confort por estilo. Nuestras colecciones de zapatillas casual integran sistemas de amortiguación avanzados diseñados originalmente para atletas de alto rendimiento. Descubre cómo la tecnología de suelas EVA y el tejido Primeknit pueden transformar tu día a día en la ciudad.
+                    <p class="text-gray-600 leading-relaxed">
+                        Ya no es necesario sacrificar confort por estilo. Nuestras colecciones integran sistemas de amortiguación avanzados (EVA, Boost, Air) diseñados originalmente para atletas, ahora adaptados para conquistar la ciudad.
                     </p>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">La Guía Definitiva del Sneakerhead</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                        Encontrar el par perfecto va más allá de la talla. Considera el <strong>drop</strong> para tu pisada, la transpirabilidad para el verano o la resistencia al agua para el invierno.
-                    </p>
-                    <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5"></i> Sneakers Altas (High-top) para soporte de tobillo y estilo basket.</li>
-                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5"></i> Sneakers Bajas (Low-top) para máxima versatilidad con jeans o chinos.</li>
-                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5"></i> Modelos Slip-on para un look minimalista y sin esfuerzo.</li>
+                
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <i data-lucide="compass" class="w-5 h-5"></i> Guía del Sneakerhead
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4 p-3 bg-white rounded-lg shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <strong class="block text-sm text-gray-900">High-top (Altas)</strong>
+                                <span class="text-xs text-gray-500">Soporte de tobillo y estética basketball retro.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 p-3 bg-white rounded-lg shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <strong class="block text-sm text-gray-900">Low-top (Bajas)</strong>
+                                <span class="text-xs text-gray-500">Máxima versatilidad con jeans, chinos o shorts.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 p-3 bg-white rounded-lg shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <strong class="block text-sm text-gray-900">Slip-on</strong>
+                                <span class="text-xs text-gray-500">Confort minimalista sin cordones.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- 3. MENÚ DE INFORMACIÓN (ACORDEÓN DESPLEGABLE) -->
-            <div class="max-w-3xl mx-auto space-y-4 mb-16">
-                <h3 class="text-center text-lg font-bold mb-6 uppercase tracking-wider text-gray-400">Preguntas Frecuentes</h3>
+            <!-- 3. MENÚ DE INFORMACIÓN (ACORDEÓN PREMIUM) -->
+            <div class="max-w-3xl mx-auto space-y-4 mb-20 px-2">
+                <h3 class="text-center text-sm font-bold mb-8 uppercase tracking-widest text-gray-400">Centro de Ayuda</h3>
                 
-                <!-- FAQ Item 1 -->
-                <details class="group bg-white border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
-                    <summary class="flex items-center justify-between p-4 cursor-pointer bg-gray-50 font-medium">
-                        <div class="flex items-center gap-3">
-                            <i data-lucide="truck" class="w-5 h-5 text-gray-500"></i>
+                <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300">
+                    <summary class="flex items-center justify-between p-5 cursor-pointer bg-white font-semibold text-base select-none">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i data-lucide="truck" class="w-5 h-5"></i>
+                            </div>
                             <span>Envíos y Entregas</span>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300 group-open:rotate-180"></i>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-open:bg-black group-open:text-white transition-colors">
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300 group-open:rotate-180"></i>
+                        </div>
                     </summary>
-                    <div class="p-4 text-sm text-gray-600 border-t border-gray-100 bg-white">
-                        Ofrecemos envío estándar gratuito en pedidos superiores a 24,90 €. El plazo de entrega habitual es de 3-5 días laborables. Para envíos urgentes, disponemos de servicio Express 24h.
+                    <div class="p-6 pt-0 text-sm text-gray-600 leading-relaxed">
+                        Ofrecemos <strong>envío estándar gratuito</strong> en pedidos superiores a 24,90 €. El plazo de entrega habitual es de 3-5 días laborables. Para envíos urgentes, disponemos de servicio Express 24h.
                     </div>
                 </details>
 
-                <!-- FAQ Item 2 -->
-                <details class="group bg-white border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
-                    <summary class="flex items-center justify-between p-4 cursor-pointer bg-gray-50 font-medium">
-                        <div class="flex items-center gap-3">
-                            <i data-lucide="refresh-cw" class="w-5 h-5 text-gray-500"></i>
+                <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300">
+                    <summary class="flex items-center justify-between p-5 cursor-pointer bg-white font-semibold text-base select-none">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                                <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                            </div>
                             <span>Devoluciones y Reembolsos</span>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300 group-open:rotate-180"></i>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-open:bg-black group-open:text-white transition-colors">
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300 group-open:rotate-180"></i>
+                        </div>
                     </summary>
-                    <div class="p-4 text-sm text-gray-600 border-t border-gray-100 bg-white">
+                    <div class="p-6 pt-0 text-sm text-gray-600 leading-relaxed">
                         Tienes <strong>100 días</strong> para devolver tus artículos de forma totalmente gratuita. Simplemente utiliza la etiqueta de devolución incluida en tu paquete o genera una nueva desde tu cuenta.
                     </div>
                 </details>
 
-                <!-- FAQ Item 3 -->
-                <details class="group bg-white border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
-                    <summary class="flex items-center justify-between p-4 cursor-pointer bg-gray-50 font-medium">
-                        <div class="flex items-center gap-3">
-                            <i data-lucide="ruler" class="w-5 h-5 text-gray-500"></i>
+                <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300">
+                    <summary class="flex items-center justify-between p-5 cursor-pointer bg-white font-semibold text-base select-none">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
+                                <i data-lucide="ruler" class="w-5 h-5"></i>
+                            </div>
                             <span>Guía de Tallas</span>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300 group-open:rotate-180"></i>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-open:bg-black group-open:text-white transition-colors">
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300 group-open:rotate-180"></i>
+                        </div>
                     </summary>
-                    <div class="p-4 text-sm text-gray-600 border-t border-gray-100 bg-white">
+                    <div class="p-6 pt-0 text-sm text-gray-600 leading-relaxed">
                         Recomendamos consultar la tabla de tallas específica de cada marca (Nike, Adidas, New Balance) disponible en la ficha de producto, ya que el tallaje puede variar. Si estás entre dos tallas, te sugerimos pedir la superior.
                     </div>
                 </details>
@@ -553,9 +544,9 @@
     <!-- FILTER DRAWER -->
     <div id="filter-overlay" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleFilters()"></div>
     
-    <aside id="filter-drawer" class="fixed inset-y-0 right-0 w-full max-w-sm bg-white z-50 transform translate-x-full drawer-transition shadow-2xl flex flex-col">
+    <aside id="filter-drawer" class="fixed inset-y-0 right-0 w-full md:max-w-sm bg-white z-50 transform translate-x-full drawer-transition shadow-2xl flex flex-col">
         <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 class="text-xl font-bold">Filtros y Orden</h2>
+            <h2 class="text-xl font-bold">Filtros</h2>
             <button onclick="toggleFilters()" class="p-2 hover:bg-gray-100 rounded-full transition">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -578,18 +569,18 @@
                 <h3 class="font-bold mb-3 flex justify-between cursor-pointer">
                     Marca <i data-lucide="chevron-down" class="w-4 h-4"></i>
                 </h3>
-                <div class="space-y-2">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-black focus:ring-black">
-                        <span class="text-sm">Nike (405)</span>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-gray-50">
+                        <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-black focus:ring-black">
+                        <span class="text-base">Nike (405)</span>
                     </label>
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-black focus:ring-black" checked>
-                        <span class="text-sm">adidas Originals (320)</span>
+                    <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-gray-50">
+                        <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-black focus:ring-black" checked>
+                        <span class="text-base">adidas (320)</span>
                     </label>
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-black focus:ring-black">
-                        <span class="text-sm">New Balance (150)</span>
+                    <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-gray-50">
+                        <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-black focus:ring-black">
+                        <span class="text-base">New Balance (150)</span>
                     </label>
                 </div>
             </div>
@@ -599,32 +590,18 @@
                     Talla <i data-lucide="chevron-down" class="w-4 h-4"></i>
                 </h3>
                 <div class="grid grid-cols-4 gap-2">
-                    <div class="border text-center py-2 text-sm cursor-pointer hover:border-black">39</div>
-                    <div class="border text-center py-2 text-sm cursor-pointer bg-black text-white border-black">40</div>
-                    <div class="border text-center py-2 text-sm cursor-pointer hover:border-black">41</div>
-                    <div class="border text-center py-2 text-sm cursor-pointer hover:border-black">42</div>
-                    <div class="border text-center py-2 text-sm cursor-pointer hover:border-black">43</div>
-                    <div class="border text-center py-2 text-sm text-gray-300 cursor-not-allowed">44</div>
-                </div>
-            </div>
-
-            <div>
-                <h3 class="font-bold mb-3 flex justify-between cursor-pointer">
-                    Precio <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                </h3>
-                <div class="h-1 bg-gray-200 rounded relative mt-4">
-                    <div class="absolute left-0 w-2/3 h-full bg-black rounded"></div>
-                    <div class="absolute left-2/3 w-4 h-4 bg-white border-2 border-black rounded-full shadow top-1/2 transform -translate-y-1/2 cursor-pointer"></div>
-                </div>
-                <div class="flex justify-between mt-2 text-sm text-gray-500">
-                    <span>0 €</span>
-                    <span>150 €</span>
+                    <div class="border text-center py-3 text-sm cursor-pointer hover:border-black rounded">39</div>
+                    <div class="border text-center py-3 text-sm cursor-pointer bg-black text-white border-black rounded">40</div>
+                    <div class="border text-center py-3 text-sm cursor-pointer hover:border-black rounded">41</div>
+                    <div class="border text-center py-3 text-sm cursor-pointer hover:border-black rounded">42</div>
+                    <div class="border text-center py-3 text-sm cursor-pointer hover:border-black rounded">43</div>
+                    <div class="border text-center py-3 text-sm text-gray-300 cursor-not-allowed rounded">44</div>
                 </div>
             </div>
         </div>
         <div class="p-6 border-t border-gray-100">
-            <button onclick="toggleFilters()" class="w-full bg-black text-white py-3 font-bold hover:bg-gray-800 transition">
-                VER 725 RESULTADOS
+            <button onclick="toggleFilters()" class="w-full bg-black text-white py-4 font-bold hover:bg-gray-800 transition rounded-lg text-lg">
+                VER RESULTADOS
             </button>
         </div>
     </aside>
@@ -643,12 +620,14 @@
                     overlay.classList.remove('opacity-0');
                     drawer.classList.remove('translate-x-full');
                 }, 10);
+                document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
             } else {
                 drawer.classList.add('translate-x-full');
                 overlay.classList.add('opacity-0');
                 setTimeout(() => {
                     overlay.classList.add('hidden');
                 }, 300);
+                document.body.style.overflow = '';
             }
         }
 
